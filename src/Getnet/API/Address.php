@@ -24,8 +24,8 @@ class Address implements \JsonSerializable {
 
     private $street;
 
-    public function __construct($postal_code) {
-        $this->setPostalCode($postal_code);
+    public function __construct() {
+        
     }
 
     public function jsonSerialize() {
