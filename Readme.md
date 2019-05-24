@@ -286,3 +286,13 @@ $response->getStatus();
 |boleto|Gera boleto|
 
 
+### Tipos de transação via cartão de crédito
+Tipo de transação. Pagamento completo à vista, parcelado sem juros, parcelado com juros.
+
+|Tipo|Descrição|
+| ------- | --------- |
+|FULL|agamento completo à vista|
+|INSTALL_NO_INTEREST|parcelado sem juros|
+|INSTALL_WITH_INTEREST|parcelado com juros|
+
+
