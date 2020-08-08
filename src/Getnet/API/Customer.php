@@ -1,4 +1,5 @@
 <?php
+
 namespace Getnet\API;
 
 /**
@@ -6,11 +7,12 @@ namespace Getnet\API;
  *
  * @package Getnet\API
  */
-class Customer implements \JsonSerializable {
+class Customer implements \JsonSerializable
+{
 
     const DOCUMENT_TYPE_CPF  = "CPF";
     const DOCUMENT_TYPE_CNPJ = "CNPJ";
-    
+
     private $customer_id;
 
     private $first_name;
@@ -29,7 +31,8 @@ class Customer implements \JsonSerializable {
 
     private $billing_address;
 
-    public function __construct($customer_id) {
+    public function __construct($customer_id = null)
+    {
         $this->setCustomerId($customer_id);
     }
 
@@ -37,7 +40,8 @@ class Customer implements \JsonSerializable {
      *
      * @return array
      */
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         $vars = get_object_vars($this);
 
         $vars_clear = array_filter($vars, function ($value) {
@@ -51,7 +55,8 @@ class Customer implements \JsonSerializable {
      *
      * @return mixed
      */
-    public function getCustomerId() {
+    public function getCustomerId()
+    {
         return $this->customer_id;
     }
 
@@ -59,9 +64,10 @@ class Customer implements \JsonSerializable {
      *
      * @param mixed $customer_id
      */
-    public function setCustomerId($customer_id) {
+    public function setCustomerId($customer_id)
+    {
         $this->customer_id = (string)$customer_id;
-        
+
         return $this;
     }
 
@@ -69,7 +75,8 @@ class Customer implements \JsonSerializable {
      *
      * @return mixed
      */
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->first_name;
     }
 
@@ -77,9 +84,10 @@ class Customer implements \JsonSerializable {
      *
      * @param mixed $first_name
      */
-    public function setFirstName($first_name) {
+    public function setFirstName($first_name)
+    {
         $this->first_name = (string)$first_name;
-        
+
         return $this;
     }
 
@@ -87,7 +95,8 @@ class Customer implements \JsonSerializable {
      *
      * @return mixed
      */
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->last_name;
     }
 
@@ -95,9 +104,10 @@ class Customer implements \JsonSerializable {
      *
      * @param mixed $last_name
      */
-    public function setLastName($last_name) {
+    public function setLastName($last_name)
+    {
         $this->last_name = (string)$last_name;
-        
+
         return $this;
     }
 
@@ -105,7 +115,8 @@ class Customer implements \JsonSerializable {
      *
      * @return mixed
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -113,9 +124,10 @@ class Customer implements \JsonSerializable {
      *
      * @param mixed $name
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = (string)$name;
-        
+
         return $this;
     }
 
@@ -123,7 +135,8 @@ class Customer implements \JsonSerializable {
      *
      * @return mixed
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -131,9 +144,10 @@ class Customer implements \JsonSerializable {
      *
      * @param mixed $email
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = (string)$email;
-        
+
         return $this;
     }
 
@@ -141,7 +155,8 @@ class Customer implements \JsonSerializable {
      *
      * @return mixed
      */
-    public function getDocumentType() {
+    public function getDocumentType()
+    {
         return $this->document_type;
     }
 
@@ -149,9 +164,10 @@ class Customer implements \JsonSerializable {
      *
      * @param mixed $document_type
      */
-    public function setDocumentType($document_type) {
+    public function setDocumentType($document_type)
+    {
         $this->document_type = (string)$document_type;
-        
+
         return $this;
     }
 
@@ -159,7 +175,8 @@ class Customer implements \JsonSerializable {
      *
      * @return mixed
      */
-    public function getDocumentNumber() {
+    public function getDocumentNumber()
+    {
         return $this->document_number;
     }
 
@@ -167,9 +184,10 @@ class Customer implements \JsonSerializable {
      *
      * @param mixed $document_number
      */
-    public function setDocumentNumber($document_number) {
+    public function setDocumentNumber($document_number)
+    {
         $this->document_number = (string)$document_number;
-        
+
         return $this;
     }
 
@@ -177,7 +195,8 @@ class Customer implements \JsonSerializable {
      *
      * @return mixed
      */
-    public function getPhoneNumber() {
+    public function getPhoneNumber()
+    {
         return $this->phone_number;
     }
 
@@ -185,9 +204,10 @@ class Customer implements \JsonSerializable {
      *
      * @param mixed $phone_number
      */
-    public function setPhoneNumber($phone_number) {
+    public function setPhoneNumber($phone_number)
+    {
         $this->phone_number = (string)$phone_number;
-        
+
         return $this;
     }
 
@@ -195,11 +215,12 @@ class Customer implements \JsonSerializable {
      *
      * @return Address
      */
-    public function billingAddress() {
+    public function billingAddress()
+    {
         $address = new Address();
-        
+
         $this->setBillingAddress($address);
-        
+
         return $address;
     }
 
@@ -207,7 +228,8 @@ class Customer implements \JsonSerializable {
      *
      * @return Address
      */
-    public function getBillingAddress() {
+    public function getBillingAddress()
+    {
         return $this->billing_address;
     }
 
@@ -215,9 +237,56 @@ class Customer implements \JsonSerializable {
      *
      * @param mixed $billing_address
      */
-    public function setBillingAddress($billing_address) {
+    public function setBillingAddress($billing_address)
+    {
         $this->billing_address = $billing_address;
-        
+
+        return $this;
+    }
+
+    /**
+     * 
+     * Cria um novo cliente
+     * 
+     */
+    public function newCustomer(Getnet $credencial, $customer)
+    {
+        $request = new Request($credencial);
+        $response = $request->post($credencial, "/v1/customers", json_encode($customer));
+
+        $this->customer_id = $response['customers'][0]['customer_id'];
+        $this->first_name = $response['customers'][0]['first_name'];
+        $this->last_name = $response['customers'][0]['last_name'];
+        $this->document_type = $response['customers'][0]['document_type'];
+        $this->document_number = $response['customers'][0]['document_number'];
+        $this->phone_number = $response['customers'][0]['phone_number'];
+        $this->celphone_number = $response['customers'][0]['celphone_number'];
+        $this->email = $response['customers'][0]['email'];
+        $this->status = $response['customers'][0]['status'];
+        dd($this);
+        return $this;
+    }
+
+    /**
+     * 
+     * Lista clientes
+     * 
+     */
+    public function getCustomer(Getnet $credencial, $cpf)
+    {
+        $request = new Request($credencial);
+        $response = $request->get($credencial, "/v1/customers?page=1&limit=10&document_number=$cpf");
+
+        $this->customer_id = $response['customers'][0]['customer_id'];
+        $this->first_name = $response['customers'][0]['first_name'];
+        $this->last_name = $response['customers'][0]['last_name'];
+        $this->document_type = $response['customers'][0]['document_type'];
+        $this->document_number = $response['customers'][0]['document_number'];
+        $this->phone_number = $response['customers'][0]['phone_number'];
+        $this->celphone_number = $response['customers'][0]['celphone_number'];
+        $this->email = $response['customers'][0]['email'];
+        $this->status = $response['customers'][0]['status'];
+
         return $this;
     }
 }
