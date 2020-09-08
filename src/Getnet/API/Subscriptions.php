@@ -103,10 +103,86 @@ class Subscriptions implements \JsonSerializable
     $request = new Request($credencial);
     $response = $request->post($credencial, "/v1/subscriptions", json_encode($data));
 
-    $this->subscription_id = $response['subscription']['subscription_id'];
-    $this->status_details = $response['status_details'];
-    $this->payment = $response['payment'];
+    $this->setSubscriptionId($response['subscription']['subscription_id']);
+    $this->setStatusDetails($response['status_details']);
+    $this->setPayment($response['payment']);
 
     return $this;
+  }
+
+  /**
+   * 
+   * Alterar valor da assinatura
+   * 
+   */
+  public function addAmountSubscription(Getnet $credencial, $idSubscription, $data)
+  {
+    $request = new Request($credencial);
+    $response = $request->post($credencial, "/v1/subscriptions/$idSubscription/floating", json_encode([$data]));
+    return $response;
+  }
+
+  /**
+   * 
+   * Alterar valor da assinatura
+   * 
+   */
+  public function changeAmountSubscription(Getnet $credencial, $idSubscription, $data)
+  {
+    $request = new Request($credencial);
+    $response = $request->patch($credencial, "/v1/subscriptions/$idSubscription/floating", json_encode([$data]));
+    return $response;
+  }
+
+  /**
+   * 
+   * Alterar valor da assinatura
+   * 
+   */
+  public function removeAllFloating(Getnet $credencial, $idSubscription)
+  {
+    $request = new Request($credencial);
+    $response = $request->delete($credencial, "/v1/subscriptions/$idSubscription/floating");
+    return $response;
+  }
+
+  /**
+   * 
+   * Alterar dia da assinatura
+   * 
+   */
+  public function changeDaySubscription(Getnet $credencial, $idSubscription, $data)
+  {
+    $request = new Request($credencial);
+    $response = $request->patch($credencial, "/v1/subscriptions/$idSubscription/paymentDate", json_encode($data));
+    return $response;
+  }
+
+
+  /**
+   * 
+   * Alterar valor da assinatura
+   * 
+   */
+  public function getSubscription(Getnet $credencial, $idSubscription)
+  {
+    $request = new Request($credencial);
+    $response = $request->get($credencial, "/v1/subscriptions/$idSubscription");
+
+    return $response;
+  }
+
+  /**
+   * 
+   * Listar ultimas 6 assinaturas
+   * 
+   */
+  public function getSubscriptions(Getnet $credencial, $query)
+  {
+    $q = http_build_query($query);
+    $request = new Request($credencial);
+    $response = $request->get($credencial, "/v1/charges?$q");
+
+    return $response;
   }
 }

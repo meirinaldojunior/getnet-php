@@ -252,19 +252,23 @@ class Customer implements \JsonSerializable
     public function newCustomer(Getnet $credencial, $customer)
     {
         $request = new Request($credencial);
-        $response = $request->post($credencial, "/v1/customers", json_encode($customer));
+        try {
+            $response = $request->post($credencial, "/v1/customers", json_encode($customer));
 
-        $this->customer_id = $response['customers'][0]['customer_id'];
-        $this->first_name = $response['customers'][0]['first_name'];
-        $this->last_name = $response['customers'][0]['last_name'];
-        $this->document_type = $response['customers'][0]['document_type'];
-        $this->document_number = $response['customers'][0]['document_number'];
-        $this->phone_number = $response['customers'][0]['phone_number'];
-        $this->celphone_number = $response['customers'][0]['celphone_number'];
-        $this->email = $response['customers'][0]['email'];
-        $this->status = $response['customers'][0]['status'];
-        dd($this);
-        return $this;
+            $this->customer_id = $response['customers'][0]['customer_id'];
+            $this->first_name = $response['customers'][0]['first_name'];
+            $this->last_name = $response['customers'][0]['last_name'];
+            $this->document_type = $response['customers'][0]['document_type'];
+            $this->document_number = $response['customers'][0]['document_number'];
+            $this->phone_number = $response['customers'][0]['phone_number'];
+            $this->celphone_number = $response['customers'][0]['celphone_number'];
+            $this->email = $response['customers'][0]['email'];
+            $this->status = $response['customers'][0]['status'];
+            dd($this);
+            return $this;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**

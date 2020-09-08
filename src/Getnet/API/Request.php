@@ -23,6 +23,8 @@ class Request
   const CURL_TYPE_POST = "POST";
   const CURL_TYPE_PUT  = "PUT";
   const CURL_TYPE_GET  = "GET";
+  const CURL_TYPE_PATCH  = "PATCH";
+  const CURL_TYPE_DELETE  = "DELETE";
 
   /**
    * Request constructor.
@@ -136,6 +138,15 @@ class Request
       $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $credentials->getAuthorizationToken();
       curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::CURL_TYPE_PUT);
       curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+    } elseif ($method == self::CURL_TYPE_PATCH) {
+      $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $credentials->getAuthorizationToken();
+      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::CURL_TYPE_PATCH);
+      curl_setopt($curl, CURLOPT_POST, 1);
+      curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+    } elseif ($method == self::CURL_TYPE_DELETE) {
+      $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $credentials->getAuthorizationToken();
+      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::CURL_TYPE_DELETE);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     } elseif ($method == self::CURL_TYPE_GET) {
       $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $credentials->getAuthorizationToken();
     } elseif ($method == self::CURL_TYPE_AUTH) {
@@ -229,5 +240,31 @@ class Request
   public function put(Getnet $credentials, $url_path, $params)
   {
     return $this->send($credentials, $url_path, self::CURL_TYPE_PUT, $params);
+  }
+
+  /**
+   * 
+   * @param Getnet $credentials
+   * @param mixed $url_path
+   * @param mixed $params
+   * @return mixed
+   * * @throws Exception
+   */
+  public function patch(Getnet $credentials, $url_path, $params)
+  {
+    return $this->send($credentials, $url_path, self::CURL_TYPE_PATCH, $params);
+  }
+
+  /**
+   * 
+   * @param Getnet $credentials
+   * @param mixed $url_path
+   * @param mixed $params
+   * @return mixed
+   * * @throws Exception
+   */
+  public function delete(Getnet $credentials, $url_path)
+  {
+    return $this->send($credentials, $url_path, self::CURL_TYPE_DELETE);
   }
 }
