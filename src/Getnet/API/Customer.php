@@ -255,16 +255,16 @@ class Customer implements \JsonSerializable
         try {
             $response = $request->post($credencial, "/v1/customers", json_encode($customer));
 
-            $this->customer_id = $response['customers'][0]['customer_id'];
-            $this->first_name = $response['customers'][0]['first_name'];
-            $this->last_name = $response['customers'][0]['last_name'];
-            $this->document_type = $response['customers'][0]['document_type'];
-            $this->document_number = $response['customers'][0]['document_number'];
-            $this->phone_number = $response['customers'][0]['phone_number'];
-            $this->celphone_number = $response['customers'][0]['celphone_number'];
-            $this->email = $response['customers'][0]['email'];
-            $this->status = $response['customers'][0]['status'];
-            dd($this);
+            $this->customer_id = $response['customer_id'];
+            $this->first_name = $response['first_name'];
+            $this->last_name = $response['last_name'];
+            $this->document_type = $response['document_type'];
+            $this->document_number = $response['document_number'];
+            $this->phone_number = $response['phone_number'];
+            $this->celphone_number = $response['celphone_number'];
+            $this->email = $response['email'];
+            $this->status = $response['status'];
+
             return $this;
         } catch (\Throwable $th) {
             throw $th;
@@ -281,7 +281,7 @@ class Customer implements \JsonSerializable
         $request = new Request($credencial);
         $response = $request->get($credencial, "/v1/customers?page=1&limit=10&document_number=$cpf");
 
-        if (!empty($response)) {
+        if (count($response['customers']) > 0) {
             $this->customer_id = $response['customers'][0]['customer_id'];
             $this->first_name = $response['customers'][0]['first_name'];
             $this->last_name = $response['customers'][0]['last_name'];
