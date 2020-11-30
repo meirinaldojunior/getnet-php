@@ -49,7 +49,7 @@ class Cofre implements \JsonSerializable
   public function getCardCofre(Getnet $credencial, $data)
   {
     $request = new Request($credencial);
-    $response = $request->get($credencial, "/v1/cards/$data",);
+    $response = $request->get($credencial, "/v1/cards/$data");
     return $response;
   }
 }
