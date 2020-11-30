@@ -1,4 +1,5 @@
 <?php
+
 namespace Getnet\API;
 
 /**
@@ -6,8 +7,9 @@ namespace Getnet\API;
  *
  * @package Getnet\API
  */
-class Credit implements \JsonSerializable {
-    
+class Credit implements \JsonSerializable
+{
+
     //Pagamento completo à vista
     const TRANSACTION_TYPE_FULL = "FULL";
     //Pagamento parcelado sem juros
@@ -39,7 +41,8 @@ class Credit implements \JsonSerializable {
      *
      * @param mixed $pre_authorization
      */
-    public function __construct($pre_authorization) {
+    public function __construct($pre_authorization = null)
+    {
         $this->pre_authorization = $pre_authorization;
     }
 
@@ -47,188 +50,233 @@ class Credit implements \JsonSerializable {
      *
      * @return array
      */
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         $vars = get_object_vars($this);
         $vars_clear = array_filter($vars, function ($value) {
             return null !== $value;
         });
-            
-            return $vars_clear;
+
+        return $vars_clear;
     }
 
     /**
      * @return mixed
      */
-    public function getAuthenticated() {
+    public function getAuthenticated()
+    {
         return $this->authenticated;
     }
 
     /**
      * @param mixed $authenticated
      */
-    public function setAuthenticated($authenticated) {
+    public function setAuthenticated($authenticated)
+    {
         $this->authenticated = $authenticated;
-        
+
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getDelayed() {
+    public function getDelayed()
+    {
         return $this->delayed;
     }
 
     /**
      * @param mixed $delayed
      */
-    public function setDelayed($delayed) {
+    public function setDelayed($delayed)
+    {
         $this->delayed = $delayed;
-        
+
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getDynamicMcc() {
+    public function getDynamicMcc()
+    {
         return $this->dynamic_mcc;
     }
 
     /**
      * @param mixed $dynamic_mcc
      */
-    public function setDynamicMcc($dynamic_mcc) {
+    public function setDynamicMcc($dynamic_mcc)
+    {
         $this->dynamic_mcc = (int)$dynamic_mcc;
-        
+
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getNumberInstallments() {
+    public function getNumberInstallments()
+    {
         return $this->number_installments;
     }
 
     /**
      * @param mixed $number_installments
      */
-    public function setNumberInstallments($number_installments) {
+    public function setNumberInstallments($number_installments)
+    {
         $this->number_installments = (int)$number_installments;
-        
+
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getPreAuthorization() {
+    public function getPreAuthorization()
+    {
         return $this->pre_authorization;
     }
 
     /**
      * @param mixed $pre_authorization
      */
-    public function setPreAuthorization($pre_authorization) {
+    public function setPreAuthorization($pre_authorization)
+    {
         $this->pre_authorization = $pre_authorization;
-        
+
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getSaveCardData() {
+    public function getSaveCardData()
+    {
         return $this->save_card_data;
     }
 
     /**
      * @param mixed $save_card_data
      */
-    public function setSaveCardData($save_card_data) {
+    public function setSaveCardData($save_card_data)
+    {
         $this->save_card_data = $save_card_data;
-        
+
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getSoftDescriptor() {
+    public function getSoftDescriptor()
+    {
         return $this->soft_descriptor;
     }
 
     /**
      * @param mixed $soft_descriptor
      */
-    public function setSoftDescriptor($soft_descriptor) {
+    public function setSoftDescriptor($soft_descriptor)
+    {
         $this->soft_descriptor = (string)$soft_descriptor;
-        
+
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getTransactionType() {
+    public function getTransactionType()
+    {
         return $this->transaction_type;
     }
 
     /**
      * @param mixed $transaction_type
      */
-    public function setTransactionType($transaction_type) {
+    public function setTransactionType($transaction_type)
+    {
         $this->transaction_type = (string)$transaction_type;
-        
+
         return $this;
     }
-    
+
     /**
      *
      * @param $token
      * @return Card
      */
-    public function card($token) {
-        
+    public function card($token)
+    {
+
         $card = new Card($token);
-        
+
         $this->setCard($card);
-        
+
+        return $card;
+    }
+
+    /**
+     *
+     * @param $token
+     * @return Card
+     */
+    public function CardTokenOnly($token)
+    {
+
+        $card = new CardTokenOnly($token);
+
+        $this->setCardTokenOnly($card);
+
         return $card;
     }
 
     /**
      * @return Card
      */
-    public function getCard() {
+    public function getCard()
+    {
         return $this->card;
     }
 
     /**
      * @param Card $card
      */
-    public function setCard(Card $card) {
+    public function setCardTokenOnly(CardTokenOnly $card)
+    {
         $this->card = $card;
-        
+
         return $this;
     }
-    
+
+    /**
+     * @param Card $card
+     */
+    public function setCard(Card $card)
+    {
+        $this->card = $card;
+
+        return $this;
+    }
+
     /**
      * @return mixed
      */
-    public function getCardholderMobile() {
+    public function getCardholderMobile()
+    {
         return $this->cardholder_mobile;
     }
 
     /**
      * @param mixed $cardholder_mobile
      */
-    public function setCardholderMobile($cardholder_mobile) {
+    public function setCardholderMobile($cardholder_mobile)
+    {
         $this->cardholder_mobile = (string)$cardholder_mobile;
-        
+
         return $this;
     }
-
-
 }

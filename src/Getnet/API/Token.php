@@ -46,6 +46,15 @@ class Token {
     }
 
     /**
+     * @param mixed $number_token
+     */
+    public function setNumberTokenAlone($token) {
+        $this->number_token = $token;
+        
+        return $this;
+    }
+
+    /**
      *
      * @param mixed $card_number
      * @return Token

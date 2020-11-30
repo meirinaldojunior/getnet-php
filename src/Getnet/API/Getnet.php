@@ -131,6 +131,7 @@ class Getnet {
             $request = new Request($this);
 
             if ($transaction->getCredit()) {
+
                 $response = $request->post($this, "/v1/payments/credit", $transaction->toJSON());
             } elseif ($transaction->getDebit()) {
                 $response = $request->post($this, "/v1/payments/debit", $transaction->toJSON());

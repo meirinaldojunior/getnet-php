@@ -112,7 +112,7 @@ class Subscriptions implements \JsonSerializable
 
   /**
    * 
-   * Alterar valor da assinatura
+   * Add valor da assinatura
    * 
    */
   public function addAmountSubscription(Getnet $credencial, $idSubscription, $data)
